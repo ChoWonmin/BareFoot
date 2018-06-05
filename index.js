@@ -9,6 +9,10 @@ const Constant = new function() {
         'South Korea': '#ec6c60',
         'Japan': '#ec6c60',
         'North Korea': '#ec6c60',
+
+        'Australia': '#ecaa41',
+        'New Zealand': '#ecaa41',
+
         'France': '#a4d086',
         'Greece': '#a4d086',
         'England': '#a4d086',
@@ -19,9 +23,7 @@ const Constant = new function() {
         'Denmark': '#a4d086',
         'Cameroon': '#a4d086',
         'Italy': '#a4d086',
-        'New Zealand': '#a4d086',
         'Slovakia': '#a4d086',
-        'Ivory Coast': '#a4d086',
         'Portugal': '#a4d086',
         'Spain': '#a4d086',
         'Switzerland': '#a4d086',
@@ -30,84 +32,87 @@ const Constant = new function() {
         'Nigeria': '#a6d9e1',
         'Algeria': '#a6d9e1',
         'Ghana': '#a6d9e1',
+        'Ivory Coast': '#a6d9e1',
+
         'United States': '#f7bc83',
-        'Mexico': '#5d68af',
+        'Mexico': '#f7bc83',
+        'Honduras': '#f7bc83',
+
         'Argentina': '#5d68af',
         'Paraguay': '#5d68af',
         'Brazil': '#5d68af',
-        'Honduras': '#5d68af',
         'Chile': '#5d68af',
-        'Australia': '#5d68af',
+        'Uruguay': '#5d68af',
     }
 
     this.mappingData = {
         team: {
-            'South Africa': 1,
-            'Mexico': 2,
-            'Uruguay': 3,
-            'France': 4,
-            'South Korea': 5,
-            'Greece': 6,
-            'Argentina': 7,
-            'Nigeria': 8,
-            'England': 9,
-            'United States': 10,
-            'Algeria': 11,
-            'Slovenia': 12,
-            'Serbia': 13,
-            'Ghana': 14,
-            'Germany': 15,
-            'Australia': 16,
-            'Netherlands': 17,
-            'Denmark': 18,
-            'Japan': 19,
-            'Cameroon': 20,
-            'Italy': 21,
-            'Paraguay': 22,
-            'New Zealand': 23,
-            'Slovakia': 24,
-            'Ivory Coast': 25,
-            'Portugal': 26,
-            'Brazil': 27,
-            'North Korea': 28,
-            'Honduras': 29,
-            'Chile': 30,
-            'Spain': 31,
-            'Switzerland': 32,
+            'South Africa': 32,
+            'Mexico': 31,
+            'Uruguay': 30,
+            'France': 29,
+            'South Korea': 28,
+            'Greece': 27,
+            'Argentina': 26,
+            'Nigeria': 25,
+            'England': 24,
+            'United States': 23,
+            'Algeria': 22,
+            'Slovenia': 21,
+            'Serbia': 20,
+            'Ghana': 19,
+            'Germany': 18,
+            'Australia': 17,
+            'Netherlands': 16,
+            'Denmark': 15,
+            'Japan': 14,
+            'Cameroon': 13,
+            'Italy': 12,
+            'Paraguay': 11,
+            'New Zealand': 10,
+            'Slovakia': 9,
+            'Ivory Coast': 8,
+            'Portugal': 7,
+            'Brazil': 6,
+            'North Korea': 5,
+            'Honduras': 24,
+            'Chile': 3,
+            'Spain': 2,
+            'Switzerland': 1,
         },
         Opponent: {
-            'South Africa': 1,
-            'Mexico': 2,
-            'Uruguay': 3,
-            'France': 4,
-            'South Korea': 5,
-            'Greece': 6,
-            'Argentina': 7,
-            'Nigeria': 8,
-            'England': 9,
-            'United States': 10,
-            'Algeria': 11,
-            'Slovenia': 12,
-            'Serbia': 13,
-            'Ghana': 14,
-            'Germany': 15,
-            'Australia': 16,
-            'Netherlands': 17,
-            'Denmark': 18,
-            'Japan': 19,
-            'Cameroon': 20,
-            'Italy': 21,
-            'Paraguay': 22,
-            'New Zealand': 23,
-            'Slovakia': 24,
-            'Ivory Coast': 25,
-            'Portugal': 26,
-            'Brazil': 27,
-            'North Korea': 28,
-            'Honduras': 29,
-            'Chile': 30,
-            'Spain': 31,
-            'Switzerland': 32,
+            'South Africa': 32,
+            'Mexico': 31,
+            'Uruguay': 30,
+            'France': 29,
+            'South Korea': 28,
+            'Greece': 27,
+            'Argentina': 26,
+            'Nigeria': 25,
+            'England': 24,
+            'United States': 23,
+            'Algeria': 22,
+            'Slovenia': 21,
+            'Serbia': 20,
+            'Ghana': 19,
+            'Germany': 18,
+            'Australia': 17,
+            'Netherlands': 16,
+            'Denmark': 15,
+            'Japan': 14,
+            'Cameroon': 13,
+            'Italy': 12,
+            'Paraguay': 11,
+            'New Zealand': 10,
+            'Slovakia': 9,
+            'Ivory Coast': 8,
+            'Portugal': 7,
+            'Brazil': 6,
+            'North Korea': 5,
+            'Honduras': 24,
+            'Chile': 3,
+            'Spain': 2,
+            'Switzerland': 1,
         },
         formation: {
             334: 1,
@@ -173,7 +178,7 @@ const parallel = new function() {
     const g = root.append('g');
     const nationDiv = root.append('a');
     g.attr('transform', 'translate(20,20)');
-    nationDiv.attr('transform', 'translate(20,12)');
+    nationDiv.attr('transform', 'translate(34,12)');
 
     const range = {};
     const axies = {};
@@ -201,7 +206,6 @@ const parallel = new function() {
                 node.recoveryColor();
             });
             _.forEach(filters, filter => {
-                console.log(filter);
                 filter.attrs({
                     opacity: 0,
                 });
@@ -276,7 +280,7 @@ const parallel = new function() {
         });
 
         var svg2 = nationDiv.append('svg').attrs({
-            x: width - 30,
+            x: width - 53,
             width: imageWidth,
             height: height + 30,
             border: '3px solid #ccc'
@@ -388,6 +392,10 @@ const parallel = new function() {
                 if (k === Constant.categoryColumns[ i ]) return null;
             if (Constant.mappingColumns[ k ])
                 v = Constant.mappingData[ k ][ v ];
+
+            if (k=='Opponent')
+                console.log(k,data['team'], '-',data[k], v)
+
             return axies[ k ].getCoord(v);
         }).value();
 
@@ -400,12 +408,12 @@ const parallel = new function() {
         }
 
         this.render = function() {
-            console.log(coords)
             path = g.append('path').attrs({
                 d: line(coords),
                 stroke: color,
                 opacity: 0.7,
                 fill: 'none',
+                nation: 'hello',
             });
         };
 
