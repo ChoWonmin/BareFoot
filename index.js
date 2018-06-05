@@ -223,11 +223,11 @@ const parallel = new function() {
             }
             _.forEach(seperateData, (d, i) => {
                 if (d <= bound.oneThird)
-                    nodes[ i ].setColor(Constant.color[ 'low' ]);
+                    nodes[ i ].setAttr({stroke:Constant.color[ 'low' ]});
                 else if (d <= bound.twoThird)
-                    nodes[ i ].setColor(Constant.color[ 'medium' ]);
+                    nodes[ i ].setAttr({stroke:Constant.color[ 'medium' ]});
                 else
-                    nodes[ i ].setColor(Constant.color[ 'high' ]);
+                    nodes[ i ].setAttr({stroke:Constant.color[ 'high' ]});
             });
         });
         colorBtn.on("click", function() {
@@ -351,7 +351,10 @@ const parallel = new function() {
                 })
                 .on('end', function() {
                     _.forEach(nodes, node => {
-                        node.setColor(Constant.pathDisableColor);
+                        node.setAttr({
+                            stroke:Constant.pathDisableColor,
+                            opacity:.3,
+                        });
                     });
 
                     if (_.find(filters, filter => filter.x == x)) { // x축에 대하여 중복의 드레그를한 경우
@@ -375,7 +378,10 @@ const parallel = new function() {
                             selectNodes.push(node);
                     });
                     _.forEach(selectNodes, node => {
-                        node.setColor(Constant.pathActiveColor);
+                        node.setAttr({
+                            stroke:Constant.pathActiveColor,
+                            opacity:1,
+                        });
                     });
 
                     filters.push(filter);
@@ -392,9 +398,6 @@ const parallel = new function() {
                 if (k === Constant.categoryColumns[ i ]) return null;
             if (Constant.mappingColumns[ k ])
                 v = Constant.mappingData[ k ][ v ];
-
-            if (k=='Opponent')
-                console.log(k,data['team'], '-',data[k], v)
 
             return axies[ k ].getCoord(v);
         }).value();
@@ -417,12 +420,15 @@ const parallel = new function() {
             });
         };
 
-        this.setColor = function(color) {
-            path.attrs({ stroke: color });
+        this.setAttr = function(obj) {
+            path.attrs(obj);
         };
 
         this.recoveryColor = function() {
-            this.setColor(color);
+            this.setAttr({
+                stroke:color,
+                opacity: 1,
+            });
         }
 
         return this;
